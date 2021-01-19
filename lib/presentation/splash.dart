@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gomla/model/adsBaseModel.dart';
 import 'package:gomla/network/apiCall.dart';
+import 'package:gomla/data/constants.dart';
+
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -29,9 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void getAds() async {
     ads = await api.getAds();
-    if (ads.status == 1)
-      Navigator.pushReplacementNamed(context, '/ads', arguments: {'ads': ads});
+    if (ads.data.ads.desc != null)
+      Navigator.pushReplacementNamed(context, '/${Constants.ADS}',
+          arguments: {'${Constants.ADS}': ads.data.ads});
     else
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/${Constants.LANGUAGE}');
   }
 }
