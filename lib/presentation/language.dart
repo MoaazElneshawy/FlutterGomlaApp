@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomla/data/constants.dart';
 
 class LanguageScreen extends StatelessWidget {
   @override
@@ -28,7 +29,10 @@ class LanguageScreen extends StatelessWidget {
                       color: Colors.white,
                       child: Text('English',
                           style: TextStyle(color: Colors.grey[600])),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, '/${Constants.HOME}');
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                           side: BorderSide(color: Colors.grey[600])),
@@ -43,7 +47,10 @@ class LanguageScreen extends StatelessWidget {
                       color: Colors.grey[600],
                       child: Text('عربي'),
                       textColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, '/${Constants.HOME}');
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)),
                     ),
