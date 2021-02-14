@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gomla/data/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageScreen extends StatelessWidget {
+  bool isLanguageSelected;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +32,12 @@ class LanguageScreen extends StatelessWidget {
                       color: Colors.white,
                       child: Text('English',
                           style: TextStyle(color: Colors.grey[600])),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, '/${Constants.HOME}');
+                      onPressed: () async {
+                        isLanguageSelected = await _setLocaleCode("en");
+                        if (isLanguageSelected) {
+                          Navigator.pushReplacementNamed(
+                              context, '/${Constants.HOME}');
+                        }
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
@@ -47,9 +53,12 @@ class LanguageScreen extends StatelessWidget {
                       color: Colors.grey[600],
                       child: Text('عربي'),
                       textColor: Colors.white,
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, '/${Constants.HOME}');
+                      onPressed: () async {
+                        isLanguageSelected = await _setLocaleCode("ar");
+                        if (isLanguageSelected) {
+                          Navigator.pushReplacementNamed(
+                              context, '/${Constants.HOME}');
+                        }
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)),
@@ -62,5 +71,11 @@ class LanguageScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<bool> _setLocaleCode(String localeCode) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(Constants.LANGUAGE_IS_SELECTED, true);
+    return pref.setString(Constants.SELECTED_LANGUAGE, localeCode);
   }
 }
