@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: FutureBuilder(
-        future: manager.getHomeScreenData(),
+        future: manager.getHomeScreenData(locale.locale.languageCode),
         // ignore: missing_return
         builder: (BuildContext context, AsyncSnapshot<HomeBaseModel> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
@@ -72,31 +72,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "${restaurant.name}",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                         SizedBox(height: 5),
                         Text(
                           "${restaurant.desc}",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 12, color: Colors.white),
                         ),
                         SizedBox(height: 5),
                         Text(
                           "${localization.translate("main_delivery_time")} : ${restaurant.deliveryTime} ${restaurant.currency}",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 12, color: Colors.white),
                         ),
                         SizedBox(height: 5),
                         Text(
                           "${localization.translate("main_delivery_cost")} : ${restaurant.deliveryFee} ${restaurant.currency}",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 12, color: Colors.white),
                         ),
                       ],
                     ))
               ],
             ),
           ),
-          menusList(restaurant.menu[0])
+          // menusList(restaurant.menu[0]),
+          Column(
+            children: restaurant.menu.map((e) => menusList(e)).toList(),
+          )
           // restaurant.menu.indexOf((element) {return menusList(element);})
         ],
       ),
@@ -117,7 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        mealsList(menu.meals[0])
+        // mealsList(menu.meals[0])
+        Column(
+          children: menu.meals.map((e) => mealsList(e)).toList(),
+        )
       ],
     );
   }
@@ -148,12 +154,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.black,
                           fontSize: 16),
                     ),
-                    IconButton(
-                        icon: Icon(Icons.shopping_cart),
-                        onPressed: () {
-                          print(meal.id.toString());
-                        }),
-                    Text('${meal.price} ${meal.currency}')
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: IconButton(
+                          icon: Icon(Icons.shopping_cart),
+                          onPressed: () {
+                            print(meal.id.toString());
+                          }),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(15.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Text('${meal.price} ${meal.currency}'),
+                    ),
                   ],
                 ),
                 Text('${meal.desc}')

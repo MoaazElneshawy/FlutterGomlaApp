@@ -5,8 +5,8 @@ class HomeManager {
 
   ApiCall _apiCall = ApiCall();
 
-  Future<HomeBaseModel> getHomeScreenData() async{
-    return await _apiCall.getHomeScreen();
+  Future<HomeBaseModel> getHomeScreenData(String lang) async{
+    return await _apiCall.getHomeScreen(lang);
   }
 
 }
