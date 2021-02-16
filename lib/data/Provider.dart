@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gomla/presentation/home/homeManager.dart';
 import 'package:gomla/presentation/splash/SplashManager.dart';
 
 class Provider extends InheritedWidget {
   final SplashManager splashManager;
+  final HomeManager homeManager;
 
-  Provider({this.splashManager, Key key, Widget child})
+  Provider({this.splashManager, this.homeManager, Key key, Widget child})
       : super(key: key, child: child);
 
   @override

@@ -4,7 +4,8 @@ import 'package:gomla/base/app_localization.dart';
 import 'package:gomla/data/Provider.dart';
 import 'package:gomla/data/constants.dart';
 import 'package:gomla/presentation/ads.dart';
-import 'package:gomla/presentation/home.dart';
+import 'package:gomla/presentation/home/home.dart';
+import 'package:gomla/presentation/home/homeManager.dart';
 import 'package:gomla/presentation/language.dart';
 import 'package:gomla/presentation/splash/SplashManager.dart';
 import 'package:gomla/presentation/splash/splash.dart';
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Provider(
         splashManager: SplashManager(),
+        homeManager: HomeManager(),
         child: MaterialApp(
             supportedLocales: [Locale('en', ''), Locale('ar', '')],
             localizationsDelegates: [

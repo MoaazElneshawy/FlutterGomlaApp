@@ -7,7 +7,7 @@ import 'package:gomla/presentation/ads.dart';
 import 'package:gomla/presentation/language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../home.dart';
+import '../home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
