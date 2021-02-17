@@ -5,6 +5,7 @@ import 'package:gomla/model/adsBaseModel.dart';
 import 'package:gomla/network/observer.dart';
 import 'package:gomla/presentation/ads.dart';
 import 'package:gomla/presentation/language.dart';
+import 'package:gomla/presentation/root/root.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home/home.dart';
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
             return AdsScreen(ads: snapshot.data.ads);
           else {
             if (isLanguageSelected)
-              return HomeScreen();
+              return Root();
             else
               return LanguageScreen();
           }

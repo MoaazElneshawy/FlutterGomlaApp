@@ -2,6 +2,7 @@ class Constants {
   // screens
   static final String ADS = "ads";
   static final String HOME = "home";
+  static final String ROOT = "root";
   static final String LANGUAGE = "language";
 
   // static variables

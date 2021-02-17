@@ -3,6 +3,7 @@ import 'package:gomla/base/app_localization.dart';
 import 'package:gomla/data/Provider.dart';
 import 'package:gomla/data/constants.dart';
 import 'package:gomla/model/homeBaseModel.dart';
+import 'package:gomla/network/observer.dart';
 import 'package:gomla/presentation/home/homeManager.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,19 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.grey[800], fontFamily: Constants.FONT),
         ),
       ),
-      body: FutureBuilder(
-        future: manager.getHomeScreenData(locale.locale.languageCode),
-        // ignore: missing_return
-        builder: (BuildContext context, AsyncSnapshot<HomeBaseModel> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            var model = snapshot.data.data;
-            if (snapshot.hasError || snapshot.data.status != 1) {
-              return Text("${snapshot.data.message}");
-            } else
-              return _setData(model, locale);
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
+      body: Observer<HomeBaseModel>(
+        stream: manager.callGetHomeScreenData(locale.locale.languageCode),
+        onSuccess: (context, HomeBaseModel snapshot) {
+          var model = snapshot.data;
+          if (snapshot.status != 1) {
+            return Text("$model");
+          } else
+            return _setData(model, locale);
         },
       ),
     );
@@ -96,36 +92,51 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          // menusList(restaurant.menu[0]),
-          Column(
-            children: restaurant.menu.map((e) => menusList(e)).toList(),
-          )
-          // restaurant.menu.indexOf((element) {return menusList(element);})
+          ListView.builder(
+              itemBuilder: (context, index) {
+                if (restaurant.menu.length > 0)
+                  return menusList(restaurant.menu[index]);
+                else
+                  return Container(child: Text('No items'));
+              },
+              itemCount: restaurant.menu.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics())
         ],
       ),
     );
   }
 
   Widget menusList(Menu menu) {
-    return Column(
-      children: [
-        Container(
-          height: 50,
-          color: Colors.grey,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('${menu.name}'), Icon(Icons.arrow_drop_down)],
-            ),
+    return Column(children: [
+      Container(
+        height: 50,
+        color: Colors.grey,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text('${menu.name}'), Icon(Icons.arrow_drop_down)],
           ),
         ),
-        // mealsList(menu.meals[0])
-        Column(
-          children: menu.meals.map((e) => mealsList(e)).toList(),
-        )
-      ],
-    );
+      ),
+      // mealsList(menu.meals[0])
+      ListView.separated(
+          itemBuilder: (context, index) {
+            if (menu.meals.length > 0)
+              return mealsList(menu.meals[index]);
+            else
+              return Container(child: Text('No items'));
+          },
+          separatorBuilder: (context, index) => Divider(
+                height: 1,
+              ),
+          itemCount: menu.meals.length,
+          shrinkWrap: true,
+          // to stop scrolling
+          physics: NeverScrollableScrollPhysics() // to stop scrolling
+          )
+    ]);
   }
 
   Widget mealsList(Meals meal) {
@@ -143,17 +154,23 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             flex: 2,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  '${meal.name}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 16),
+                ),
+                Text(
+                  '${meal.desc}',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      '${meal.name}',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 16),
-                    ),
                     Container(
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
@@ -173,8 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text('${meal.price} ${meal.currency}'),
                     ),
                   ],
-                ),
-                Text('${meal.desc}')
+                )
               ],
             ),
           ),
@@ -183,4 +199,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-// child:
