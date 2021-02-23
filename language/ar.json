@@ -1,5 +1,8 @@
 {
   "main_title": "الصفحة الرئيسية",
   "main_delivery_time": "وقت التوصيل",
-  "main_delivery_cost": "تكلفة التوصيل"
+  "main_delivery_cost": "تكلفة التوصيل",
+  "cart_title":"السلة",
+  "settings_title":"الإعدادت",
+  "contact_us_title":"اتصل بنا"
 }

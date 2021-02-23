@@ -5,7 +5,7 @@ import 'package:gomla/model/adsBaseModel.dart';
 import 'package:gomla/network/observer.dart';
 import 'package:gomla/presentation/ads.dart';
 import 'package:gomla/presentation/language.dart';
-import 'package:gomla/presentation/root/root.dart';
+import 'package:gomla/base/root.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home/home.dart';

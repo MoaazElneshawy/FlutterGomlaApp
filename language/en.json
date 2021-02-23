@@ -1,5 +1,8 @@
 {
   "main_title": "Main Page",
   "main_delivery_time": "Delivery Time",
-  "main_delivery_cost": "Delivery Cost"
+  "main_delivery_cost": "Delivery Cost",
+  "cart_title":"Cart",
+  "settings_title":"Settings",
+  "contact_us_title":"Contact Us"
 }

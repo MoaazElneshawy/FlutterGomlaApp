@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gomla/data/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class LanguageScreen extends StatelessWidget {
   bool isLanguageSelected;
 
@@ -36,7 +37,7 @@ class LanguageScreen extends StatelessWidget {
                         isLanguageSelected = await _setLocaleCode("en");
                         if (isLanguageSelected) {
                           Navigator.pushReplacementNamed(
-                              context, '/${Constants.HOME}');
+                              context, '/${Constants.ROOT}');
                         }
                       },
                       shape: RoundedRectangleBorder(
@@ -57,7 +58,7 @@ class LanguageScreen extends StatelessWidget {
                         isLanguageSelected = await _setLocaleCode("ar");
                         if (isLanguageSelected) {
                           Navigator.pushReplacementNamed(
-                              context, '/${Constants.HOME}');
+                              context, '/${Constants.ROOT}');
                         }
                       },
                       shape: RoundedRectangleBorder(

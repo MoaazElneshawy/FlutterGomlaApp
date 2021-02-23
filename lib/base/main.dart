@@ -7,7 +7,7 @@ import 'package:gomla/presentation/ads.dart';
 import 'package:gomla/presentation/home/home.dart';
 import 'package:gomla/presentation/home/homeManager.dart';
 import 'package:gomla/presentation/language.dart';
-import 'package:gomla/presentation/root/root.dart';
+import 'package:gomla/base/root.dart';
 import 'package:gomla/presentation/splash/SplashManager.dart';
 import 'package:gomla/presentation/splash/splash.dart';
 
