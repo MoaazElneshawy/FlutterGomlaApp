@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gomla/base/app_localization.dart';
+import 'package:gomla/base/root.dart';
 import 'package:gomla/data/Provider.dart';
 import 'package:gomla/data/constants.dart';
 import 'package:gomla/presentation/ads.dart';
-import 'package:gomla/presentation/home/home.dart';
+import 'package:gomla/presentation/contactUs/contactUsManager.dart';
 import 'package:gomla/presentation/home/homeManager.dart';
 import 'package:gomla/presentation/language.dart';
-import 'package:gomla/base/root.dart';
 import 'package:gomla/presentation/splash/SplashManager.dart';
 import 'package:gomla/presentation/splash/splash.dart';
 
@@ -26,6 +26,7 @@ class _MyAppState extends State<MyApp> {
     return Provider(
         splashManager: SplashManager(),
         homeManager: HomeManager(),
+        contactUsManager: ContactUsManager(),
         child: MaterialApp(
             supportedLocales: [Locale('en', ''), Locale('ar', '')],
             localizationsDelegates: [
